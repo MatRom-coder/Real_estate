@@ -5,7 +5,6 @@ from sklearn.linear_model import LinearRegression
 from sklearn.linear_model import Ridge
 from sklearn.metrics import mean_absolute_error
 from sklearn.metrics import r2_score
-from sklearn.metrics import matthews_corrcoef
 
 df = pd.read_csv("./Real_estate.csv")
 
