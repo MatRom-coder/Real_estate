@@ -5,9 +5,11 @@ from sklearn.linear_model import LinearRegression
 from sklearn.linear_model import Ridge
 from sklearn.metrics import mean_absolute_error
 from sklearn.metrics import r2_score
+import matplotlib.pyplot as plt
 
-df = pd.read_csv("./Real_estate.csv")
 
+
+df = pd.read_csv("../Real_estate.csv")
 
 """
 
@@ -22,7 +24,7 @@ x = df.drop(["No", "X1 transaction date", "X5 latitude", "X6 longitude", "Y hous
 y = df["Y house price of unit area"]
 
 
-x_train, x_test , Y_train, Y_test = train_test_split(x, y , test_size = 0.2, shuffle = False )
+x_train, x_test , Y_train, Y_test = train_test_split(x, y , test_size = 0.2 )
 
 lin_reg = LinearRegression()
 lin_reg.fit(x_train, Y_train)
@@ -37,12 +39,7 @@ ridge_reg = Ridge(alpha = 100)
 ridge_reg.fit(x_train, Y_train)
 y_pred = ridge_reg.predict(x_test)
 
-print("------------------------------------------------")
-print("RIDGE REGRESSION VALUES:")
-print("------------------------------------------------")
-print("MAE: ", mean_absolute_error(Y_test,y_pred))
-print("R^2: ", r2_score(Y_test,y_pred))
-print("------------------------------------------------")
+
 
 
 """
@@ -59,6 +56,11 @@ new_df = df.drop(["No", "X1 transaction date", "X5 latitude", "X6 longitude", "Y
 
 i = 0
 n_col = new_df.shape[1]
+fig, axs = plt.subplots(1, 3, figsize=(10, 3))
+j = 0
+r = axs.shape[0]
+
+
 for _ in range(0, n_col):
     
     
@@ -71,9 +73,35 @@ for _ in range(0, n_col):
     
     lin_reg.fit(x_train, Y_train)
     y_pred = lin_reg.predict(x_test)
-    i += 1
+    y_pred_train = lin_reg.predict(x_train)
+    
+    
     
     print("MAE: ", mean_absolute_error(Y_test,y_pred))
     print("R^2: ", r2_score(Y_test,y_pred))
 
     
+    #let's evaluate if there is overfitting or underfitting
+    
+    print("R^2 train set linear regression:", r2_score(y_pred_train, Y_train))
+    print("R^2 test set linear regression:", r2_score(y_pred, Y_test))
+   
+
+    
+
+    
+    axs[i].scatter(x_test, Y_test, marker='.', color='blue')
+    axs[i].scatter(x_test, y_pred, marker='*', color='yellow')
+    i += 1
+
+
+        
+#let's try to evaluate if there is a case of overfitting or underfitting with graphs
+
+
+
+
+plt.xlabel("x_test")
+plt.ylabel("Y_test")
+fig.suptitle('graphs ')
+plt.show()
