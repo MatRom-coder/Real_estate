@@ -28,13 +28,25 @@ class Knn:
     def training_model(self):
         
         x_train = self.split_data()[0]
-        Y_train = self.split_data()[1]
+        Y_train = self.split_data()[2]
         
         self.reg.fit(x_train, Y_train)
 
     def prediction_accuracy(self):
+        
+        
+        """
+        The principal purpose of this function is to verify the accuracy of the model.
+
+        Returns:
+            float value: acc -> accuracy of the model obtained from the score function.
+            Score function include the predict function.
+        """
+        
+        x_test = self.split_data()[1]
+        Y_test = self.split_data()[3]
         acc = 0  #let's initialize the accuracy value to 0
-        print("accuracy: ", self.reg.score(x_test,Y_test))
+        acc = self.reg.score(x_test,Y_test)
 
         return acc
 
@@ -43,4 +55,7 @@ class Knn:
 
 
 if __name__ == "__main__":
-    ...
+    knn_obj = Knn()
+    knn_obj.split_data()
+    knn_obj.training_model()
+    print(knn_obj.prediction_accuracy())
