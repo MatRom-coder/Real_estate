@@ -10,6 +10,11 @@ import matplotlib.pyplot as plt
 class Knn:
 
     def __init__(self):
+        
+        """
+         - Initializing Knn object with the number of neighbors setted to three
+         - Getting the data 
+        """
         self.reg = KNeighborsRegressor(n_neighbors=3)
         self.df = pd.read_csv('../Real_estate.csv')
 
@@ -17,6 +22,10 @@ class Knn:
 
 
     def split_data(self):
+        
+        """
+        Splitting the data in training and test set with test size of 0.2.
+        """
         
         x = self.df.drop(["No", "X1 transaction date", "X5 latitude", "X6 longitude", "Y house price of unit area"], 1)
         y = self.df["Y house price of unit area"]
@@ -27,9 +36,11 @@ class Knn:
 
     def training_model(self):
         
+        """
+        training of the model
+        """
         x_train = self.split_data()[0]
-        Y_train = self.split_data()[2]
-        
+        Y_train = self.split_data()[2]        
         self.reg.fit(x_train, Y_train)
 
     def prediction_accuracy(self):
