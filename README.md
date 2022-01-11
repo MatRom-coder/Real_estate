@@ -4,5 +4,5 @@
 Predict the prices of real estate
 
 ## Requirements:
-- install sklearn
+- install scikit-learn
 - install seaborn
