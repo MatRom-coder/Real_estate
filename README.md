@@ -1,8 +1,8 @@
 # Real_estate
 
-##Purpose:
+## Purpose:
 Predict the prices of real estate
 
-##Requirements:
+## Requirements:
 - install sklearn
 - install seaborn
